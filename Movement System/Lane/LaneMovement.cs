@@ -11,8 +11,12 @@ public class LaneMovement : MonoBehaviour
 	[Tooltip("lane number starts from 0")]
 	public int currentLaneNumber;
 
+	public bool canSwitchLane = true;
+
 	private void Update()
 	{
+		if(!canSwitchLane) return;
+
 		if(Input.GetKeyDown(laneUp) && currentLaneNumber > 0)
 		{
 			currentLaneNumber--;
