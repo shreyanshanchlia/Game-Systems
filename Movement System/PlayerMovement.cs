@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     /*
      * Master Class for Player Movement
      */
+#if UNITY_EDITOR
     [ContextMenu("Smooth Move/Move X")]
     public void AddMoveX()
 	{
@@ -23,4 +22,5 @@ public class PlayerMovement : MonoBehaviour
     {
         Undo.AddComponent<MoveZ>(this.gameObject);
     }
+#endif
 }
