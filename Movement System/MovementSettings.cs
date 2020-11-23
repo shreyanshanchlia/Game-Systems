@@ -6,11 +6,27 @@ public class MovementSettings : MonoBehaviour
 {
     public bool allowLaneSwitchingWhenJumping = true;
 
-    [SerializeField] Jump jump;
-    [SerializeField] LaneMovement laneMovement;
+    Jump jump;
+    LaneMovement laneMovement;
 
-    public void JumpingState()
+	private void Start()
 	{
-
+		jump = GetComponent<Jump>();
+		laneMovement = GetComponent<LaneMovement>();
+		if (jump != null && laneMovement != null)
+		{
+			jump.OnJumpStateChange += JumpStateChanged;
+		}
+	}
+	void JumpStateChanged(Jump jump)
+	{
+		if(jump.jumpState == Jump.JumpState.Grounded)
+		{
+			laneMovement.canSwitchLane = true;
+		}
+		else
+		{
+			laneMovement.canSwitchLane = false;
+		}
 	}
 }

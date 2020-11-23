@@ -10,7 +10,7 @@ public class Jump : MonoBehaviour
 	JumpJsonData jumpJson;
 
 	protected bool useRigidBody = true;
-	protected enum JumpState
+	public enum JumpState
 	{
 		Grounded, Jumping, Falling
 	};
@@ -19,10 +19,18 @@ public class Jump : MonoBehaviour
 	{
 		D2, D3
 	};
-	protected JumpState currentState;
+	JumpState _JumpState;
+	[HideInInspector] public JumpState jumpState { get { return _JumpState; } set { _JumpState = value; OnStateChange(); } }
 	[SerializeField] protected MovementDimensions movementDimensions;
 	public GameObject GroundDetector;
 	public float radius = 0.1f;
+	public LayerMask GroundLayer;
+	[HideInInspector] public event System.Action<Jump> OnJumpStateChange;
+
+	void OnStateChange()
+	{
+		OnJumpStateChange?.Invoke(this);
+	}
 
 #if UNITY_EDITOR
 	private void OnValidate()
@@ -34,6 +42,14 @@ public class Jump : MonoBehaviour
 		}
 		Jump2D jump2D = gameObject.GetComponent<Jump2D>();
 		Jump3D jump3D = gameObject.GetComponent<Jump3D>();
+
+		if (jump2D == null && jump3D == null)
+		{
+			jump2D = Undo.AddComponent<Jump2D>(this.gameObject);
+			Invoke(nameof(DestroyJump), 0f);
+			jump = jump2D;
+		}
+
 		if (movementDimensions == MovementDimensions.D2 && jump2D == null)
 		{
 			jump3D.movementDimensions = MovementDimensions.D3;
@@ -52,6 +68,10 @@ public class Jump : MonoBehaviour
 			JsonUtility.FromJsonOverwrite(jumpJson.jumpJson3D, currentJump3D);
 			currentJump3D.jumpJson = jumpJson;
 		}
+	}
+	private void DestroyJump()
+	{
+		Undo.DestroyObjectImmediate(gameObject.GetComponent<Jump>());
 	}
 	private void DestroyJump2D()
 	{

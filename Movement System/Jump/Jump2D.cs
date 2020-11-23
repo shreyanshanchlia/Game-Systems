@@ -22,6 +22,10 @@ public class Jump2D : Jump
 	}
 	void Update()
 	{
+		if (Physics2D.OverlapCircle(GroundDetector.transform.position, radius, GroundLayer) != null)
+		{
+			jumpState = JumpState.Grounded;
+		}
 		if (Input.GetKeyDown(jumpKey))
 		{
 			if (jumpAllowed)
@@ -33,5 +37,6 @@ public class Jump2D : Jump
 	void JumpNow()
 	{
 		rb.AddForce(JumpForce, ForceMode2D.Impulse);
+		jumpState = JumpState.Jumping;
 	}
 }

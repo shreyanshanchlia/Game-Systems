@@ -13,19 +13,31 @@ public class LaneMovement : MonoBehaviour
 
 	public bool canSwitchLane = true;
 
+	public GameObject[] additionalLaneObjects;
+
 	private void Update()
 	{
-		if(!canSwitchLane) return;
+		if (canSwitchLane)
+		{
 
-		if(Input.GetKeyDown(laneUp) && currentLaneNumber > 0)
-		{
-			currentLaneNumber--;
-			this.transform.position += laneDistance;
-		}
-		if(Input.GetKeyDown(laneDown) && currentLaneNumber < numberOfLanes - 1)
-		{
-			currentLaneNumber++;
-			this.transform.position -= laneDistance;
+			if (Input.GetKeyDown(laneUp) && currentLaneNumber > 0)
+			{
+				currentLaneNumber--;
+				this.transform.position += laneDistance;
+				foreach (GameObject additionalLane in additionalLaneObjects)
+				{
+					additionalLane.transform.position += laneDistance;
+				}
+			}
+			if (Input.GetKeyDown(laneDown) && currentLaneNumber < numberOfLanes - 1)
+			{
+				currentLaneNumber++;
+				this.transform.position -= laneDistance;
+				foreach (GameObject additionalLane in additionalLaneObjects)
+				{
+					additionalLane.transform.position -= laneDistance;
+				}
+			}
 		}
 	}
 }
