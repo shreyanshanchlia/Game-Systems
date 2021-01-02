@@ -18,11 +18,11 @@ namespace SDG
         }
         public void NextItem()
         {
-            selectedItemNumber = (selectedItemNumber + 1) % 1;
+            selectedItemNumber = (selectedItemNumber + 1) % AmountOfItems;
         }
         public void PreviousItem()
         {
-            selectedItemNumber = (selectedItemNumber - 1) % 1;
+            selectedItemNumber = (selectedItemNumber - 1) % AmountOfItems;
         }
     }
 }
