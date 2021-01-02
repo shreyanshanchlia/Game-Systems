@@ -6,5 +6,6 @@ An implementation of some of the most used systems in Game Development
    - Continuous linear movement 
      - Useful for games like [Jumping Dinosaur](https://play.google.com/store/apps/details?id=com.Shreyansh.trexdinasour)
    - Lane based Movement
-     - Useful for games like Subway Surfers
-     
+     - Useful for lane based games
+   - Controlled smooth movement
+     - USeful for 2d/3d rpg games
