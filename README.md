@@ -9,3 +9,8 @@ An implementation of some of the most used systems in Game Development
      - Useful for lane based games
    - Controlled smooth movement
      - USeful for 2d/3d rpg games
+## Available UI Systems
+1. Horizontal Selector
+   - Loopable Horizontal Selector
+     - Useful for selecting between multiple items
+       - example included - images selection
